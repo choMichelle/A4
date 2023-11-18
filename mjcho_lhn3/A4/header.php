@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css/main-style.css">
+    </head>
+    <body>
+        <div class="nav-bar">
+            <a href="showmodels.php"><div class="nav-button">All models</div></a>
+            <a href="addtowatchlist.php"><div class="nav-button">Watchlist</div></a>
+            <a href="login.php"><div class="nav-button">Log in</div></a>
+        </div>
+    </body>
+</html>
