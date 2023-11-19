@@ -33,36 +33,67 @@ $stmt_product = mysqli_prepare($db, $query_product);
 if(!$stmt_product) {
     die("Error:" .mysqli_error($db));
 }
-?>
-<html>
-    <head>
 
+if ($invalidID) {
+    echo "Product not found.";
+}
+else {
+    //bind and execute stmt
+    mysqli_stmt_bind_param($stmt_product, "s", $id);
+    mysqli_stmt_execute($stmt_product);
+
+    //get query result
+    $result = mysqli_stmt_get_result($stmt_product);
+
+    if (mysqli_num_rows($result) != 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            //save all data values in variables
+            $prodCode = $row['productCode']; //
+            $buyPrice = $row['buyPrice']; // 
+            $msrp = $row['MSRP']; //
+            $prodDesc = $row['productDescription']; //
+            $prodLine = $row['productLine']; //
+            $prodName = $row['productName']; //
+            $prodScale = $row['productScale']; //
+            $prodVendor = $row['productVendor']; //
+            $stockQty = $row['quantityInStock'];
+        }
+    }
+}
+mysqli_free_result($result);
+?>
+<html lang="en">
+    <head>
+        <title><?php echo $id; ?></title>
     </head>
     <body>
-        <?php
-        if ($invalidID) {
-            echo "Product not found.";
-        }
-        else {
-            mysqli_stmt_bind_param($stmt_product, "s", $id);
-            mysqli_stmt_execute($stmt_product);
-            $result = mysqli_stmt_get_result($stmt_product);
+        <div class="detail-container">
+            
+            <div><?php echo "<h1>$prodName</h1>"; ?></div>
+            <div class="detail-multi-horizontal">
+                <div><?php echo "Product code: $prodCode"; ?></div>
+                <div><?php echo "Product line: $prodLine"; ?></div>
+            </div>
+            <div><?php echo "Scale: $prodScale"?></div>
+            
+            <div class="detail-description"><?php echo $prodDesc; ?></div>
 
-            if (mysqli_num_rows($result) != 0) {
-                echo "<table>";
-                echo $id;
-                while ($row = mysqli_fetch_assoc($result)) {
-                    //add a row for each retrieved row in the result
-                    echo "<tr>";
+            <div class="detail-button">
+                <div><?php echo "Buy it for $$buyPrice"?></div>
 
-                    //add cells in the row for the values of each column
-                    
-                    echo "</tr>";
-                }
-                echo "</table>";
-            }
-        }
-        ?>
+                <div class="detail-multi-horizontal">
+                    <div><?php echo "$stockQty left " ?></div>
+                    <div><?php echo "Sold by $prodVendor" ?></div>
+                </div>
+            </div>
+
+            <div class="detail-multi-horizontal">
+                <div><?php echo "MSRP: $$msrp"?></div>
+                <div><a href="addtowatchlist.php">Add to watchlist</a></div>
+            </div>
+
+        </div>
+        
         <!-- "add to watchlist" button/link that redirects to addtowatchlist.php -->
         <!-- can't add duplicates to watchlist (no add if already in watchlist) -->
     </body>

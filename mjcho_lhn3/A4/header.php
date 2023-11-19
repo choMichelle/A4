@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/main-style.css">
+        <link rel="stylesheet" href="css/main-style.css?v=<?php echo time(); ?>"> 
+        <!-- echo time() to resolve caching issue -->
     </head>
     <body>
         <div class="nav-bar">

@@ -17,7 +17,7 @@ if (!$model_names_result) {
     <title>Show models</title>
 </head>
 <body>
-    <ul>
+    <div class="models-container">
         <?php
         if (mysqli_num_rows($model_names_result) != 0) {
             while ($row = mysqli_fetch_assoc($model_names_result)) {
@@ -25,7 +25,7 @@ if (!$model_names_result) {
             }
         }
         ?>
-    </ul>
+    </div>
     <!-- model names from products table in the db, list all, click one item to redirect to model details -->
 </body>
 <?php
