@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
-require_once("db.php");
+
+require_once("initializer.php");
 include("header.php");
-include("assets/helper.php");
 
 //query for all model names
 $query_model_names = "SELECT productName FROM products";
