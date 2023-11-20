@@ -3,7 +3,7 @@
 require_once("initializer.php");
 include("header.php");
 
-// SSLtoHTTP();
+SSLtoHTTP();
 
 //query for all model names
 $query_model_names = "SELECT productName FROM products";
@@ -12,7 +12,6 @@ if (!$model_names_result) {
     die("query failed");
 }
 
-print_r($_SESSION['email']);
 ?>
 
 <html>

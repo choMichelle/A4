@@ -45,18 +45,18 @@ if (!empty($_POST["submit"])) {
             else {
                 $firstName = $_POST['firstName'];
                 $lastName = $_POST['lastName'];
-                $email = $_POST['email'];
+                $postedEmail = $_POST['email'];
                 $hashPassword = sha1($_POST['password']);
     
                 //save user data into the db
                 $insert_query = "INSERT INTO users (firstName, lastName, email, hashedPassword) VALUES (?,?,?,?)";
                 $insert_stmt = mysqli_prepare($db, $insert_query);
-                mysqli_stmt_bind_param($insert_stmt, "ssss", $firstName, $lastName, $email, $hashPassword);
+                mysqli_stmt_bind_param($insert_stmt, "ssss", $firstName, $lastName, $postedEmail, $hashPassword);
                 $res = mysqli_stmt_execute($insert_stmt);
     
                 //if save successful, set session and redirect
                 if ($res) {
-                    $_SESSION['email'] = $email;
+                    $_SESSION['email'] = $postedEmail;
                     header("Location: showmodels.php");
                     exit;
                 }
