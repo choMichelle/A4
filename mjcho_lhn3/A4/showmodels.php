@@ -3,12 +3,16 @@
 require_once("initializer.php");
 include("header.php");
 
+// SSLtoHTTP();
+
 //query for all model names
 $query_model_names = "SELECT productName FROM products";
 $model_names_result = mysqli_query($db, $query_model_names);
 if (!$model_names_result) {
     die("query failed");
 }
+
+print_r($_SESSION['email']);
 ?>
 
 <html>

@@ -3,6 +3,8 @@
 require_once("initializer.php");
 include("header.php");
 
+// SSLtoHTTP();
+
 $invalidID = true;
 $id = $_GET["id"]; //get product id from showmodels.php
 

@@ -5,6 +5,7 @@ include("header.php");
 
 require_SSL(); //force to HTTPS
 
+//if already logged in, redirect
 if (isset($_SESSION['email'])) {
     header("Location: showmodels.php");
 }
@@ -20,6 +21,9 @@ mysqli_query($db, $create_table_query);
 if (validateTextInput('firstName') && validateTextInput('lastName') && validateTextInput('email') &&validateTextInput('password') && validateTextInput('passwordConfirm')) {
     if ($_POST['password'] == $_POST['passwordConfirm']) {
         $allInputValid = true;
+    }
+    else {
+        echo "Please fill in all fields.";
     }
 }
 
@@ -82,14 +86,14 @@ if (!empty($_POST["submit"])) {
         <label for="email">Email: </label>
         <input type="text" id="email" name="email" />
 
-        <label for="password">Password:</label>
+        <label for="password">Password: </label>
         <input type="text" id="password" name="password" />
 
         <label for="passwordConfirm">Confirm password: </label>
         <input type="text" id="passwordConfirm" name="passwordConfirm" />
 
         <input type="submit" name="submit"/>
-</form>
+    </form>
     
 </body>
 </html>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
-require_once("db.php");
+require_once("initializer.php");
 include("header.php");
+
+// SSLtoHTTP();
 ?>
 
 <html lang="en">

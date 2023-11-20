@@ -10,6 +10,13 @@ function require_SSL() {
     }
 }
 
+function SSLtoHTTP() {
+    if ($_SERVER["HTTPS"] == "on") {
+        header("Location: http://" .$_SERVER["HTTP_HOST"]. $_SERVER["REQUEST_URI"]);
+        exit();
+    }
+}
+
 function validateTextInput($inputName) {
     if (isset($_POST[$inputName]) && !empty($_POST[$inputName])) {
         return true;
