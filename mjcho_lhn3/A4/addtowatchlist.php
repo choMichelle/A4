@@ -3,7 +3,7 @@
 require_once("initializer.php");
 include("header.php");
 
-// SSLtoHTTP();
+SSLtoHTTP();
 ?>
 
 <html lang="en">
