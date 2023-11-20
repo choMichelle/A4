@@ -1,4 +1,5 @@
 <?php
+//i think we can delete this later
 
 require_once("initializer.php");
 
