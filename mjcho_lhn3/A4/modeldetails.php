@@ -6,7 +6,10 @@ include("header.php");
 SSLtoHTTP();
 
 $invalidID = true;
-$id = $_GET["id"]; //get product id from showmodels.php
+
+if(isset($_GET["id"])) $id = $_GET["id"]; //get product id from showmodels.php
+
+
 
 //query for all model names
 $query_model_names = "SELECT productName FROM products";
@@ -18,7 +21,7 @@ if (!$model_names_result) {
 //check if the product id is valid
 if (mysqli_num_rows($model_names_result) != 0) {
     while ($row = mysqli_fetch_assoc($model_names_result)) {
-        if ($row['productName'] === $id) {
+        if (isset($_GET["id"]) && $row['productName'] === $id) {
             $invalidID = false;
             break;
         }
@@ -38,6 +41,7 @@ if(!$stmt_product) {
 
 if ($invalidID) {
     echo "Product not found.";
+    exit;
 }
 else {
     //bind and execute stmt
@@ -84,7 +88,7 @@ mysqli_free_result($result);
                 <div><?php echo "Buy it for $$buyPrice"?></div>
 
                 <div class="detail-multi-horizontal">
-                    <div><?php echo "$stockQty left " ?></div>
+                    <div><?php echo "$stockQty left" ?></div>
                     <div><?php echo "Sold by $prodVendor" ?></div>
                 </div>
             </div>
