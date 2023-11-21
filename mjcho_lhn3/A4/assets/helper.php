@@ -85,5 +85,21 @@ function addItemToWatchList($item){
     mysqli_stmt_bind_param($insert_stmt, "ss", $productName, $postedEmail);
     mysqli_stmt_execute($insert_stmt);
 }
+
+
+function makeTextEntry($type, $label, $text, $varname) {
+    echo "<label for=\"$label\">$text:</label>";
+    echo "<input type=\"$type\" id=\"$varname\" name=\"$varname\"";
+    
+    if (isset($_POST[$varname]) && ($_POST[$varname] != "/")) {
+        echo "value=$_POST[$varname]";
+    }
+    
+    echo " />";
+}
+
+
+
+
 ?>
 

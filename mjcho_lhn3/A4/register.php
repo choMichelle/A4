@@ -11,6 +11,7 @@ if (isset($_SESSION['email'])) {
 }
 
 $allInputValid = false;
+$errormsg = "";
 
 //create table to hold user data (if it doesnt already exist)
 // $create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`users` (`firstName` VARCHAR(255) NOT NULL , `lastName` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `hashedPassword` VARCHAR(255) NOT NULL , PRIMARY KEY (`email`)) ENGINE = InnoDB";
@@ -20,20 +21,23 @@ $allInputValid = false;
 
 //TODO - validate email text input to be 
 if (validateTextInput('firstName') && validateTextInput('lastName') && validateTextInput('email') &&validateTextInput('password') && validateTextInput('passwordConfirm')) {
-    if (str_contains($_POST['email'], "@")) {
+    if (str_contains($_POST['email'], "@") && str_contains($_POST['email'], ".")) {
         if ($_POST['password'] == $_POST['passwordConfirm']) {
             $allInputValid = true;
         }
         else {
-            echo "Passwords do not match.";
+            $errormsg = "Passwords do not match.";
         }
     }
     else {
-        echo "Email format requires: @";
+        $errormsg = "Email format requires: @ and a .domain";
     }
 }
 else {
-    echo "Please fill in all fields.";
+    $errormsg =  "Please fill in all fields.";
+}
+if (!empty($errormsg)){
+    echo "<div class=\"errormsg\"style=\"color: red;\"> $errormsg</div>";
 }
 
 if (!empty($_POST["submit"])) {
@@ -86,7 +90,7 @@ if (!empty($_POST["submit"])) {
 </head>
 <body>
     <form action="register.php" method="POST">
-        <label for="firstName">First name: </label>
+        <!-- <label for="firstName">First name: </label>
         <input type="text" id="firstName" name="firstName" />
 
         <label for="lastName">Last name: </label>
@@ -98,10 +102,18 @@ if (!empty($_POST["submit"])) {
         <label for="password">Password: </label>
         <input type="password" id="password" name="password" />
 
-        <label for="passwordConfirm">Confirm password: </label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm" />
+        <label for="passwordConfirm">Confirm password: </label> -->
+        
+    <?php 
+    makeTextEntry('text', 'firstName', 'First name', 'firstName');
+    makeTextEntry('text', 'lastName', 'Last name', 'lastName');
+    makeTextEntry('text', 'email', 'Email', 'email');
+    makeTextEntry('password', 'password', 'Password', 'password');
+    makeTextEntry('password', 'passwordConfirm', 'Confirm password', 'passwordConfirm'); 
+    ?>
+            <input type="submit" name="submit"/>
 
-        <input type="submit" name="submit"/>
+
     </form>
     
 </body>

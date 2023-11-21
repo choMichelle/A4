@@ -3,8 +3,9 @@
 require_once("initializer.php");
 include("header.php");
 
-require_SSL(); //force to HTTPS
+require_SSL(); //force to HTTPS, learned from GOGEL
 
+$errormsg = "";
 
 if (!empty($_POST['submit'])) {
     
@@ -25,18 +26,21 @@ if (!empty($_POST['submit'])) {
                     if ($hash_pass == $row['hashedPassword']) {
                         //set session (log in) and redirect
                         $_SESSION['email'] = $inputEmail;
-
-                        
-
                         header("Location: showmodels.php");
                     }
+                    
                 }
+                
             }
-            else {
-                echo "Incorrect email or password.";
-            } 
+          
         }
+        else {
+            $errormsg = "Incorrect email or password.";
+        } 
         
+    }
+    else{
+        $errormsg = "Email and password fields can't be empty";
     }
 }
 
@@ -47,7 +51,9 @@ if (!empty($_POST['submit'])) {
         <title>Log in</title>
     </head>
     <body>
-        
+    <?php if (!empty($errormsg))
+       echo "<div class=\"errormsg\"style=\"color: red;\"> $errormsg</div>"
+    ?>
         <form action="login.php" method="POST">
             <label for="email">Email: </label>
             <input type="text" id="email" name="email" />

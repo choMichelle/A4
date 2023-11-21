@@ -86,4 +86,18 @@ label {
     margin-bottom: 8px;
 }
 
+.errormsg {
+    text-align: center;
+}
+
+div {
+    text-align: center;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    display: block;
+
+}
+
 
