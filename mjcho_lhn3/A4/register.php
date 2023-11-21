@@ -20,12 +20,20 @@ $allInputValid = false;
 
 //TODO - validate email text input to be 
 if (validateTextInput('firstName') && validateTextInput('lastName') && validateTextInput('email') &&validateTextInput('password') && validateTextInput('passwordConfirm')) {
-    if ($_POST['password'] == $_POST['passwordConfirm']) {
-        $allInputValid = true;
+    if (str_contains($_POST['email'], "@")) {
+        if ($_POST['password'] == $_POST['passwordConfirm']) {
+            $allInputValid = true;
+        }
+        else {
+            echo "Passwords do not match.";
+        }
     }
     else {
-        echo "Please fill in all fields.";
+        echo "Email format requires: @";
     }
+}
+else {
+    echo "Please fill in all fields.";
 }
 
 if (!empty($_POST["submit"])) {
@@ -88,10 +96,10 @@ if (!empty($_POST["submit"])) {
         <input type="text" id="email" name="email" />
 
         <label for="password">Password: </label>
-        <input type="text" id="password" name="password" />
+        <input type="password" id="password" name="password" />
 
         <label for="passwordConfirm">Confirm password: </label>
-        <input type="text" id="passwordConfirm" name="passwordConfirm" />
+        <input type="password" id="passwordConfirm" name="passwordConfirm" />
 
         <input type="submit" name="submit"/>
     </form>
