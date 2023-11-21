@@ -7,28 +7,27 @@ SSLtoHTTP();
 ?>
 
 <?php
-if (isset($_SESSION['email'])) {    
-    //Create a table for watchlist with user email and model column
+    if (isset($_SESSION['email'])) {    
 
+        //save user data into the db
+        if(isset($_POST['newWatchListProdName'])){
+            $productName = $_POST['newWatchListProdName'];
+            $postedEmail = $_SESSION['email'];
+            //GPT taught me INSERT IGNORE INTO
+            $insert_query = "INSERT IGNORE INTO watchlist (productName, email) VALUES (?,?)";
+            $insert_stmt = mysqli_prepare($db, $insert_query);
+            mysqli_stmt_bind_param($insert_stmt, "ss", $productName, $postedEmail);
+            $res = mysqli_stmt_execute($insert_stmt);
 
-    //save user data into the db
-    if(!isset($POST['newWatchListProdCode'])){
-        $productCode = $_POST['newWatchListProdCode'];
-        $postedEmail = $_SESSION['email'];
-        $insert_query = "INSERT INTO watchlist (productCode, email) VALUES (?,?)";
-        $insert_stmt = mysqli_prepare($db, $insert_query);
-        mysqli_stmt_bind_param($insert_stmt, "ss", $productCode, $postedEmail);
-        $res = mysqli_stmt_execute($insert_stmt);
-
-        unset($_POST['newWatchListProdCode']);
+            unset($_POST['newWatchListProdName']);
+        }
+        showUserWatchlist($_SESSION['email']);
     }
-    //redirect the player back to the item when they login
-    
-}
-else{
-    $_SESSION['callback_url'] = 'addtowatchlist.php';
-    header("Location: login.php");
-}
+    else{
+        $_SESSION['callback_url'] = 'addtowatchlist.php';
+        header("Location: login.php");
+    }
+
 
 
 ?>

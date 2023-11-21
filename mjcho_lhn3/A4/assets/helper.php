@@ -25,24 +25,41 @@ function validateTextInput($inputName) {
     }
 }
 
-function isInWatchlist($prodCode){
+function isInWatchlist($prodName){
     if(!isset($_SESSION['db'])){
         echo "can't fetch database";
     }
     else{
         $db = $_SESSION['db'];
-        $query = "SELECT * FROM watchlist WHERE productCode =? AND email =?";
+        $query = "SELECT * FROM watchlist WHERE productName=? AND email =?";
         $stmt = $db->prepare($query);
-		$stmt->bind_param('ss',$prodCode, $_SESSION['email']);
+		$stmt->bind_param('ss',$prodName, $_SESSION['email']);
         $stmt->execute();
         $stmt->store_result();
-        $bro = $stmt -> num_rows;
+
         if($stmt -> num_rows > 0) {
             return true;
         }
         else {
             return false;
         }
+    }
+}
+
+function showUserWatchlist($email){
+    $db = $_SESSION['db'];
+    $query = "SELECT * FROM watchlist WHERE email =?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $bro = $stmt->num_rows;
+    if ($result->num_rows != 0) {
+        while ($row = $result->fetch_assoc()) {
+            addListItem($row['productName']);
+        }
+    } else {
+        echo "Watchlist is empty";
     }
 }
 
@@ -54,7 +71,8 @@ function makeUserTable(){
 
 function makeWatchListTable(){
     $db = $_SESSION['db'];
-    $create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`watchlist` (`productCode` VARCHAR(15) NOT NULL , `email` VARCHAR(255) NOT NULL) ENGINE = InnoDB;";
+    $create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`watchlist` (`productName` VARCHAR(225) NOT NULL , `email` VARCHAR(255) NOT NULL) ENGINE = InnoDB;";
     mysqli_query($db, $create_table_query);
 }
 ?>
+

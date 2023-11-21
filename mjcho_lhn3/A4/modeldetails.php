@@ -99,9 +99,9 @@ mysqli_free_result($result);
                 <div>
                     <?php
                     if ((!isset($_SESSION['email']))
-                    || ((isset($_SESSION['email'])) && !isInWatchlist($prodCode))){
+                    || ((isset($_SESSION['email'])) && !isInWatchlist($prodName))){
                         echo "<form action=\"addtowatchlist.php\" method=\"post\">";
-                        echo "<input type = \"hidden\" name=\"newWatchListProdCode\" value=$prodCode>";
+                        echo "<input type = \"hidden\" name=\"newWatchListProdName\" value=\"$prodName\">";
                         echo "<input type=\"submit\" name=\Add To Watchlist\ value=\"Add To Watchlist\">";
                         echo "</form>";
                     }
