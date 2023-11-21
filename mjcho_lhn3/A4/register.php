@@ -13,9 +13,9 @@ if (isset($_SESSION['email'])) {
 $allInputValid = false;
 
 //create table to hold user data (if it doesnt already exist)
-$create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`users` (`firstName` VARCHAR(255) NOT NULL , `lastName` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `hashedPassword` VARCHAR(255) NOT NULL , PRIMARY KEY (`email`)) ENGINE = InnoDB";
+// $create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`users` (`firstName` VARCHAR(255) NOT NULL , `lastName` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `hashedPassword` VARCHAR(255) NOT NULL , PRIMARY KEY (`email`)) ENGINE = InnoDB";
 
-mysqli_query($db, $create_table_query);
+// mysqli_query($db, $create_table_query);
 
 
 //TODO - validate email text input to be 

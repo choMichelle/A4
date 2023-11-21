@@ -10,4 +10,6 @@ if (mysqli_connect_errno()) {
     echo "not connected" . mysqli_connect_error();
     exit;
 }
+$_SESSION['db'] = $db;
+
 ?>

@@ -95,7 +95,21 @@ mysqli_free_result($result);
 
             <div class="detail-multi-horizontal">
                 <div><?php echo "MSRP: $$msrp"?></div>
-                <div><a href="addtowatchlist.php">Add to watchlist</a></div>
+                <!-- <div><a href="addtowatchlist.php">Add to watchlist</a></div> -->
+                <div>
+                    <?php
+                    if ((!isset($_SESSION['email']))
+                    || ((isset($_SESSION['email'])) && !isInWatchlist($prodCode))){
+                        echo "<form action=\"addtowatchlist.php\" method=\"post\">";
+                        echo "<input type = \"hidden\" name=\"newWatchListProdCode\" value=$prodCode>";
+                        echo "<input type=\"submit\" name=\Add To Watchlist\ value=\"Add To Watchlist\">";
+                        echo "</form>";
+                    }
+                    else{
+                        echo "Item is already in your watchlist"
+                    }
+                    ?>
+                </div>
             </div>
 
         </div>

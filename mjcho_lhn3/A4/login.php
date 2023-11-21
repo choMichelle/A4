@@ -24,6 +24,9 @@ if (!empty($_POST['submit'])) {
                 if ($hash_pass == $row['hashedPassword']) {
                     //set session (log in) and redirect
                     $_SESSION['email'] = $inputEmail;
+
+                    
+
                     header("Location: showmodels.php");
                 }
             }
