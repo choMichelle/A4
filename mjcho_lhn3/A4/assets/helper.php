@@ -2,7 +2,7 @@
 function addListItem($itemName) {
     echo "<a href=\"modeldetails.php?id=$itemName\" class=\"list-anchor\"><div class=\"models-list-item\">$itemName</div></a>";
 }
-
+    $db = $_SESSION['db'];
 //force page to use HTTPS
 function require_SSL() {
     if ($_SERVER["HTTPS"] != "on") {
@@ -73,6 +73,17 @@ function makeWatchListTable(){
     $db = $_SESSION['db'];
     $create_table_query = "CREATE TABLE IF NOT EXISTS `classicmodels`.`watchlist` (`productName` VARCHAR(225) NOT NULL , `email` VARCHAR(255) NOT NULL) ENGINE = InnoDB;";
     mysqli_query($db, $create_table_query);
+}
+
+function addItemToWatchList($item){
+    $db = $_SESSION['db'];
+    $productName = $item;
+    $postedEmail = $_SESSION['email'];
+    //GPT taught me INSERT IGNORE INTO
+    $insert_query = "INSERT IGNORE INTO watchlist (productName, email) VALUES (?,?)";
+    $insert_stmt = mysqli_prepare($db, $insert_query);
+    mysqli_stmt_bind_param($insert_stmt, "ss", $productName, $postedEmail);
+    mysqli_stmt_execute($insert_stmt);
 }
 ?>
 
