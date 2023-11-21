@@ -20,19 +20,21 @@ if (!empty($_POST['submit'])) {
     
         if ($result) {
             $row = mysqli_fetch_assoc($result);
-            
-            if ($hash_pass == $row['hashedPassword']) {
-                //set session (log in) and redirect
-                $_SESSION['email'] = $inputEmail;
-                header("Location: showmodels.php");
+            if(!empty($row)){
+                if ($hash_pass == $row['hashedPassword']) {
+                    //set session (log in) and redirect
+                    $_SESSION['email'] = $inputEmail;
+                    header("Location: showmodels.php");
+                }
             }
             else {
                 echo "Incorrect email or password.";
-            }
+            }    
         }
         
     }
 }
+
 ?>
 
 <html lang="en">
