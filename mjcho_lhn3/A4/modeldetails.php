@@ -106,7 +106,7 @@ mysqli_free_result($result);
                         echo "</form>";
                     }
                     else{
-                        echo "Item is already in your watchlist"
+                        echo "Item is already in your watchlist";
                     }
                     ?>
                 </div>
